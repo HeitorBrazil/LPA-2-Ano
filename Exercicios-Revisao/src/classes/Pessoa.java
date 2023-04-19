@@ -71,7 +71,7 @@ public abstract class Pessoa {
 
     private boolean vencerPromo() {
         int idade = this.calcIdade();
-        if(idade >= 21) {
+        if(idade >= 21 && this.validaCad()) {
             if((this.numeros[0][0] + this.numeros[1][1]) == (this.numeros[0][1] + this.numeros[1][0]))
                 return true;
             else
