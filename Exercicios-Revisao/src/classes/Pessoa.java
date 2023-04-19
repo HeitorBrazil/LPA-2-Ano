@@ -1,5 +1,6 @@
 package classes;
 
+import java.time.Year;
 import java.util.Arrays;
 import java.util.Calendar;
 
@@ -10,12 +11,11 @@ public abstract class Pessoa {
     private int[][] numeros = new int[2][2];
     private boolean validado;
     
-    public Pessoa(String nome, Calendar dtNasc, char[] uf, int[][] numeros, boolean validado) {
+    public Pessoa(String nome, Calendar dtNasc, char[] uf, int[][] numeros) {
         this.nome = nome;
         this.dtNasc = dtNasc;
         this.uf = uf;
         this.numeros = numeros;
-        this.validado = validado;
     }
 
     public String getNome() {
@@ -60,16 +60,23 @@ public abstract class Pessoa {
 
     @Override
     public String toString() {
+        String numeros = "";
+        for (int i = 0; i < numeros.length(); i++) {
+            numeros += " - ";
+            for (int j = 0; j < this.numeros[0].length; j++) {
+                numeros += this.numeros[i][j] + " ";
+            }
+        }
+
         return "Nome: " + nome + 
-        "\nData Nascimento: " + dtNasc +
-        "\nNumeros: " + Arrays.toString(numeros) +
-        "\nUF: " + Arrays.toString(uf) +
-        "\nValidado: " + validado;
+        "\nData Nascimento: " + dtNasc.get(Calendar.DAY_OF_MONTH) + "/" + dtNasc.get(Calendar.MONTH) + "/" + dtNasc.get(Calendar.YEAR) +
+        "\nNumeros: " + numeros +
+        "\nUF: " + Arrays.toString(uf);
     }
     
     public abstract boolean validaCad();
 
-    private boolean vencerPromo() {
+    protected boolean vencerPromo() {
         int idade = this.calcIdade();
         if(idade >= 21 && this.validaCad()) {
             if((this.numeros[0][0] + this.numeros[1][1]) == (this.numeros[0][1] + this.numeros[1][0]))

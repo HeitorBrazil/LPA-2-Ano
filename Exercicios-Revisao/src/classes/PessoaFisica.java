@@ -5,9 +5,10 @@ import java.util.Calendar;
 public class PessoaFisica extends Pessoa {
     private int[] CPF = new int[14];
 
-    public PessoaFisica(String nome, Calendar dtNasc, char[] uf, int[][] numeros, boolean validado, int[] CPF) {
-        super(nome, dtNasc, uf, numeros, validado);
+    public PessoaFisica(String nome, Calendar dtNasc, char[] uf, int[][] numeros, int[] CPF) {
+        super(nome, dtNasc, uf, numeros);
         this.CPF = CPF;
+        this.setValidado(this.validaCad());
     }
 
     @Override
@@ -50,6 +51,19 @@ public class PessoaFisica extends Pessoa {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        String cpf = "";
+        for (int i = 0; i < CPF.length; i++) {
+            cpf = cpf + CPF[i];
+        }
+
+        return super.toString() +
+        "\nValidado: " + this.isValidado() + 
+        "\nGanhou o Sorteio: " + this.vencerPromo() + 
+        "\nCPF: " + cpf;
     }
     
 }
